@@ -8,6 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "3.11.*"
 fastapi = "^0.111.0"
+pydantic = {extras = ["email"], version = "^2.7.1"}
+pytest = "^8.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -44,3 +46,6 @@ run = 'fastapi dev fast_zero/app.py'
 pre_test = 'task lint'
 test = 'pytest -s -x --cov=fast_zero -vv'
 post_test = 'coverage html'
+
+[tool.pyright]
+include = ["tests", "fast_zero"]
