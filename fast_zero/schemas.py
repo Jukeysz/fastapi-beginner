@@ -23,3 +23,17 @@ class UserDB(UserSchema):
 
 class UserList(BaseModel):
     users: list[UserPublic]
+
+
+# acess_token is the token that represents the user's session
+# token_type is the authentication included in the jwt's head
+# and that will be included in every authorization request
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str | None = None
