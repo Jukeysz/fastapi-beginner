@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from fast_zero.models import User
+from fast_zero.models import Todo, User
 
 
 def test_create_user(session):
@@ -17,5 +17,17 @@ def test_create_user(session):
     assert user.username == 'joao'
 
 
-# We create a new row in the table and commit it. Thus, we are able to make
-# a query and assertions about it
+def test_create_user_task(session, user):
+    todo = Todo(
+        title='Test Todo',
+        description='Test Desc',
+        state='draft',
+        user_id=user.id,
+    )
+
+    session.add(todo)
+    session.commit()
+
+    user = session.scalar(select(User).where(User.id == user.id))
+
+    assert todo in user.todos
